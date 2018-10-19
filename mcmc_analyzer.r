@@ -40,7 +40,5 @@ poiss_norm_analysis <- function (z, mu_mu, mu_tau, tau_r, tau_glambda, poi_r, po
 	est_mus <- mclist.samples$hidden_mu
 	est_taus <- mclist.samples$hidden_tau
 	est_lambdas <- mclist.samples$hidden_lambda
-	plot(est_lambdas, est_mus, xlab='Poisson Lambda estimates',
-	     ylab='Normal Mu estimates',main='Posterior Pairs for underlying values')
 	return (list(est_mus, est_taus, est_lambdas))
 }
