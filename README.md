@@ -1,6 +1,8 @@
 # poiss-norm-analysis
 Generates an arbitrary data set by repeatedly taking a Poisson-distributed variable exponentiated by a Normally distributed variable, then uses Gibbs Sampling to derive the original parameters
 
+For instructions on running the program, consult INSTRUCTIONS.txt
+
 The purpose of this program is to test the effectiveness of Bayesian analysis, by attempting something that would be extremely difficult using frequentist analysis.
 
 The problem, specified intentionally to be difficult for frequentist analysis is this:
