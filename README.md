@@ -5,7 +5,7 @@ The purpose of this program is to test the effectiveness of Bayesian analysis, b
 
 The problem, specified intentionally to be difficult for frequentist analysis is this:
 
-Z = (X+1)^Y, where X~Poisson(lambda) and Y~Normal(mu, sigma^2)
+Z = (X+1)^Y, where X ~ Poisson(lambda) and Y ~ Normal(mu, sigma^2)
 Given data points Z, find (or rather, estimate) lambda, mu, and sigma.
 
 An idea of a situation where this form of data might occur could be random events of pedestrians accumulating at a crosswalk generating levels of noise. X could be taken as the number of pedestrians, and Y could be the rate at which they inspire one another to make louder noises (Y>1 could mean an amplifying effect, 0<Y<1 could mean diminishing returns, Y<0 seems unlikely but theoretically justifiable under specific circumstances.)
