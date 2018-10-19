@@ -7,7 +7,7 @@ library ('rjags')
 core_mu <- 4
 core_sigma <- 0.4
 core_lambda <- 10
-num_data <- 100
+num_data <- 400
 
 # Convert Sigma to Tau
 core_tau <- core_sigma^(-2)
