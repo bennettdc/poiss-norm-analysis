@@ -1,0 +1,55 @@
+data
+{
+	# Data:
+	#	ones[1:M]
+	#	z2[1:N]
+	#
+	# Log-transform data to transform exponentiation to multiplication
+	# This turns it from [(dpois + 1)^dnorm] into [dnorm * log(dpois + 1)]
+	#   which in turn is dnorm(mu*log(dpois+1), tau*(log(dpois+1))^-2)
+	# This is much easier to model because it transforms the interaction
+	#   from latent exponentiation (hard) to latent parameterization (easy)
+	#
+	# HOWEVER log(dpois+1) can be 0, which makes dnorm density infinite at 0
+	#   (i.e. variance = 0), so data must be separated btw z = 1, z =/= 1
+	#   (this is done prior to the model)
+
+	for (j in 1:N)
+	{
+		logz2[j] <- log(z2[j])
+	}
+}
+model
+{
+	# Input priors:
+	#	mu_mu, mu_tau - the normal prior's mean/precision of the latent normal mean
+	#	tau_r, tau_glambda - the gamma prior's shape/rate for the latent normal precision
+	#	poi_r, poi_glambda - the gamma prior's shape/rate for the latent poisson lambda
+
+	for (i in 1:M)
+	{
+		# Latent poisson for ones (note that all ones[i] == 0)
+		ones[i] ~ dpois(hidden_lambda)
+	}
+	for (j in 1:N)
+	{
+		# Latent poisson for non-ones
+		poi[j] ~ dpois(hidden_lambda)
+
+		# LogZ2 is normally distributed, with mean and variance multiplied by log-poisson
+		logz2[j] ~ dnorm(mu[j], tau[j])
+
+		# Latent log-poisson coefficient for mean/variance
+		logpoi[j] <- log(poi[j]+1)
+
+		# Latent underlying tau for dnorm
+		tau[j] <- hidden_tau * pow(logpoi[j], -2)
+		# Latent underlying mu for dnorm
+		mu[j] <- hidden_mu * logpoi[j]
+	}
+
+	# Prior distributions on latent variables
+	hidden_mu ~ dnorm(mu_mu, mu_tau)
+	hidden_tau ~ dgamma(tau_r, tau_glambda)
+	hidden_lambda ~ dgamma(poi_r, poi_glambda)
+}
