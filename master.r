@@ -1,13 +1,13 @@
 # Outer code, set initialization parameters and loop lengths
 
 library ('rjags')
-setwd("D:/Users/David/Dropbox/Other/Schoolwork/Machine Learning/part 2")
+#setwd("D:/Users/David/Dropbox/Other/Schoolwork/Machine Learning/part 2")
 
 # True values underlying the data generation
 core_mu <- 4
 core_sigma <- 0.4
 core_lambda <- 10
-num_data <- 1000
+num_data <- 400
 
 # Convert Sigma to Tau
 core_tau <- core_sigma^(-2)
@@ -54,6 +54,11 @@ for (i in 1:length(norm_taus))
 {
 	norm_sigmas[i] = 1/sqrt(norm_taus[i])
 }
+
+# Graph the results
+plot(pois_lams, norm_mus, xlab='Poisson Lambda estimates',
+     ylab='Normal Mu estimates',main='Posterior Pairs for underlying values')
+
 
 # Median is much more accurate as a point estimate than the mean due to curvature
 # The Mode is possible to deduce, but tricky
