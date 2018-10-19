@@ -1,0 +1,19 @@
+# General instructions to run/use this program
+
+Requirements:
+  R installed
+  JAGS installed
+  rjags package installed in R
+
+To run the analysis as-is, simply run master.r:
+	>	setwd("<folder path for master.r>")
+	>	source('master.r')
+
+To try running the same process but with different parameters, you can adjust the variables at the beginning of master.r
+
+To speed up the process, reduce the number of samples, number of burn-in cycles, and number of data points
+To increase accuracy, increase them, instead
+
+Run time is essentially O(amount of data * (number of adaptive cycles + number of burn-cycles + number of samples))
+
+Editing prior variables will primarily change the number of burn-in cycles that is appropriate, unless the data set is very small.
