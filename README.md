@@ -20,6 +20,6 @@ log(z) = Y * log(X+1) ~ Normal(mu * log(X+1), (sigma * log(X+1))^2)
 
 And voila! Now X is just a parameter, which is very easy to implement in Gibbs Sampling. However, we will later encounter a problem with log(X+1), when we try to plug it in for the variance.
 
-As stated, the derived normal distribution has a variance of (sigma * log(X+1))^2. If log(X+1) = log(0+1) = log(1) = 0, then the variance = 0, which is a problem as that results in an infinitely precise normal distribution. Thankfully, we know exactly for which data points X = 0: when Z = 1 it is necessarily due to X = 0. (X+1)^Y = 1 IFF (X = 0 || Y = 0 || Y = -inf || (X = -2 && Y is Even)) Since Y is a continuous distribution, the chances that Y = 0 are infinitesimal, and the third and fourth cases are likewise impossible.
+As stated, the derived normal distribution has a variance of (sigma * log(X+1))^2. If log(X+1) = log(0+1) = log(1) = 0, then the variance = 0, which is a problem as that results in an infinitely precise normal distribution. Thankfully, we know exactly for which data points X = 0: when Z = 1 it is necessarily due to X = 0. (X+1)^Y = 1 IFF (X = 0 || Y = 0 || (X = -2 && Y is Even)) Since Y is a continuous distribution, the chances that Y = 0 are infinitesimal, and the third case is likewise impossible.
 
 So we separate the data into the points where Z = X+1 = 1 and Z =/= 1. Then we apply Gibbs Sampling such that the data points where Z=1 are informative *only for the poisson distribution.*
